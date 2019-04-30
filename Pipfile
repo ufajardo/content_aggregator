@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 beautifulsoup4 = "*"
 apscheduler = "*"
+django-apscheduler = "*"
 
 [requires]
 python_version = "3.7"

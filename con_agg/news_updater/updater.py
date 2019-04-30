@@ -13,8 +13,9 @@ apscheduler
 
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-from con_agg.newsapi import newsapi
+from con_agg.news_updater import newsapi
 
 def start():
     scheduler = BackgroundScheduler()
     scheduler.add_job(newsapi.update_time, 'interval', minutes=1)
+    scheduler.start()
