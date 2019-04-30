@@ -7,13 +7,18 @@ Important libraries:
 
 BeautifulSoup4
 
-def update_time is a temporary function that will update the time automatically in the DB
+def update_time is a temporary function that will updatepy  the time automatically in the DB
 
 
 
 """
 
 from con_agg.models import WebsiteList
+from django.utils.timezone import now
+
 
 def update_time():
-    new_time = WebsiteList.object()
+    new_time = WebsiteList.objects.all()
+    for item in new_time:
+        item.last_update = now()
+        item.save()
