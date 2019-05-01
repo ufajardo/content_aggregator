@@ -13,8 +13,11 @@ def update_time is a temporary function that will updatepy  the time automatical
 
 """
 
-from con_agg.models import WebsiteList
+from con_agg.models import WebsiteList, Content
 from django.utils.timezone import now
+from bs4 import BeautifulSoup
+from urllib import request
+
 
 
 def update_time():
@@ -22,3 +25,27 @@ def update_time():
     for item in new_time:
         item.last_update = now()
         item.save()
+
+
+def cnn_news():
+    object = WebsiteList.objects.get(pk=1)
+
+    url = object.web_url
+    doc = request.urlopen(url)
+    soup = BeautifulSoup(doc, features='html.parser')
+
+    for allh3 in soup.find_all('h3')[:5]:
+        for header in allh3:
+            Content.objects.create_content(header.text, "https://www.cnn.com"+str(header.get('href')), object)
+
+
+def fox_news():
+    object = WebsiteList.objects.get(pk=2)
+
+    url = object.web_url
+    doc = request.urlopen(url)
+    soup = BeautifulSoup(doc, features='html.parser')
+
+    for allh3 in soup.find_all('h4')[:5]:
+        for header in allh3:
+            Content.objects.create_content(header.text, "https://www.cnn.com/"+str(header.get('href')), object)

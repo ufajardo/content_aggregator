@@ -13,13 +13,20 @@ class WebsiteList(models.Model):
             self.timestamp = datetime.utcnow()
         return super(WebsiteList, self).save(*args, **kwargs)
 
-
     def __str__(self):
         return "{}, {}, and {}".format(self.web_name, self.web_url, self.last_update)
 
+
+class CreateContent(models.Manager):
+    def create_content(self, title, article_url, website):
+        content = self.create(title=title, article_url=article_url, website=website)
+        return content
+
+
 class Content(models.Model):
-    author = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
-    created_date = models.DateTimeField()
-    text = models.TextField()
+    created_date = models.DateTimeField(default=now())
+    article_url = models.CharField(max_length=50)
     website = models.ForeignKey(WebsiteList, on_delete=models.CASCADE)
+
+    objects = CreateContent()
