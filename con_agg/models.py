@@ -14,7 +14,7 @@ class WebsiteList(models.Model):
         return super(WebsiteList, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{}, {}, and {}".format(self.web_name, self.web_url, self.last_update)
+        return "{}".format(self.web_name)
 
 
 class CreateContent(models.Manager):

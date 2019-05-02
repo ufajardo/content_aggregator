@@ -13,9 +13,10 @@ apscheduler
 
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from con_agg.news_updater import newsapi
+from con_agg.news_updater.newsapi import reuters_news, cnn_news
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(newsapi.cnn_news, 'interval', minutes=1)
+    scheduler.add_job(reuters_news, 'interval', minutes=4)
+    scheduler.add_job(cnn_news, 'interval', minutes=5)
     scheduler.start()

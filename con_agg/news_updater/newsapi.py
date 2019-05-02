@@ -39,13 +39,17 @@ def cnn_news():
             Content.objects.create_content(header.text, "https://www.cnn.com"+str(header.get('href')), object)
 
 
-def fox_news():
-    object = WebsiteList.objects.get(pk=2)
+def reuters_news():
+    object = WebsiteList.objects.get(pk=3)
 
     url = object.web_url
     doc = request.urlopen(url)
     soup = BeautifulSoup(doc, features='html.parser')
 
-    for allh3 in soup.find_all('h4')[:5]:
-        for header in allh3:
-            Content.objects.create_content(header.text, "https://www.cnn.com/"+str(header.get('href')), object)
+    for allh2 in soup.find_all('h2'):
+        for header in allh2:
+            Content.objects.create_content(header.text, str(header.get('href')), object)
+
+
+def database_check():
+    pass
