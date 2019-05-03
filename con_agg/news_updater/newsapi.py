@@ -10,6 +10,8 @@ BeautifulSoup4
 def update_time is a temporary function that will updatepy  the time automatically in the DB
 
 
+def site_check is a function that loops through all of the websites in websitelist and uses beautifulsoup to
+
 
 """
 
@@ -27,29 +29,22 @@ def update_time():
         item.save()
 
 
-def cnn_news():
-    object = WebsiteList.objects.get(pk=1)
+def site_check():
+    site_list = WebsiteList.objects.all()
 
-    url = object.web_url
-    doc = request.urlopen(url)
-    soup = BeautifulSoup(doc, features='html.parser')
+    for x in site_list:
+        site_object = WebsiteList.objects.get(web_name=x.web_name)
 
-    for allh3 in soup.find_all('h3')[:5]:
-        for header in allh3:
-            Content.objects.create_content(header.text, "https://www.cnn.com"+str(header.get('href')), object)
+        url = site_object.web_url
+        doc = request.urlopen(url)
+        soup = BeautifulSoup(doc, features='html.parser')
 
+        Content.objects.filter(website=x.pk).delete()
 
-def reuters_news():
-    object = WebsiteList.objects.get(pk=3)
+        for all_header in soup.find_all(x.header_type)[:5]:
+            for header in all_header:
+                Content.objects.create_content(header.text, header.get('href'), site_object)
 
-    url = object.web_url
-    doc = request.urlopen(url)
-    soup = BeautifulSoup(doc, features='html.parser')
+        x.last_update = now()
+        x.save()
 
-    for allh2 in soup.find_all('h2'):
-        for header in allh2:
-            Content.objects.create_content(header.text, str(header.get('href')), object)
-
-
-def database_check():
-    pass

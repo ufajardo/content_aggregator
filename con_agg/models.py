@@ -7,6 +7,7 @@ class WebsiteList(models.Model):
     web_name = models.CharField(max_length=50)
     web_url = models.CharField(max_length=300)
     last_update = models.DateTimeField(default=now)
+    header_type = models.CharField(max_length=10, default='h2')
 
     def save(self, *args, **kwargs):
         if not self.id:
