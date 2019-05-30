@@ -6,6 +6,7 @@ from django.utils.timezone import now, datetime
 class WebsiteList(models.Model):
     web_name = models.CharField(max_length=50)
     web_url = models.CharField(max_length=300)
+    web_hardlink = models.CharField(max_length=200, null=True, blank=True)
     last_update = models.DateTimeField(default=now)
     header_type = models.CharField(max_length=10, default='h2')
 
