@@ -13,7 +13,7 @@ apscheduler
 
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from con_agg.news_updater.newsapi import reuters_news, cnn_news, site_check
+from con_agg.news_updater.newsapi import site_check
 
 def start():
     scheduler = BackgroundScheduler()
