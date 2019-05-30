@@ -12,19 +12,29 @@
   </head>
 <body>
     <div class="container">
-        <h1>Welcome to Mew's Content Aggregator</h1>
+        <h1><strong>Welcome to Mew's Content Aggregator</strong></h1>
+        <br>
+        <br>
 
         <div class="row">
             {% for item in web_list %}
             <div class="col-md-4">
-                <h2>{{ item.web_name }}</h2>
-
+                <h2><u>{{ item.web_name }}</u></h2>
+                <p>{{ item.last_update }}</p>
+                <br>
                 {% for content in content_list %}
-                {% if content.website.id == item.id %}
-
-                <p>{{ content.title }}</p>
-                <a href="">{{ content.article_url }}</a>
-                {% endif %}
+                    {% if content.website.id == item.id %}
+                    </br>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>{{ content.title }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{ content.article_url }}" target="_blank"><button class="btn btn-info">LINK</button></a>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endif %}
                 {% endfor %}
             </div>
             {% endfor %}
